@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sơ Đồ Thiết Kế Hệ Thống Website ECT & Trợ Lý Agentic</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         :root {
             --primary: #1e40af;
@@ -14,7 +13,6 @@
             --text: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --success: #059669;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -25,7 +23,7 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1250px;
             margin: 0 auto;
         }
         header {
@@ -46,7 +44,7 @@
             background: var(--card-bg);
             border-radius: 12px;
             padding: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 36px;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             border: 1px solid var(--border);
         }
@@ -72,10 +70,9 @@
         .btn-download {
             background-color: var(--primary);
             color: white;
-            border: none;
+            text-decoration: none;
             padding: 8px 16px;
             border-radius: 6px;
-            cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
             display: inline-flex;
@@ -86,13 +83,21 @@
         .btn-download:hover {
             background-color: var(--primary-hover);
         }
-        .mermaid-container {
+        .img-container {
+            width: 100%;
             overflow-x: auto;
-            padding: 16px;
+            text-align: center;
             background: #ffffff;
             border-radius: 8px;
-            border: 1px dashed var(--border);
-            text-align: center;
+            border: 1px solid var(--border);
+            padding: 12px;
+            box-sizing: border-box;
+        }
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
         }
         .table-responsive {
             overflow-x: auto;
@@ -140,375 +145,89 @@
     <header>
         <h1>TÀI LIỆU SƠ ĐỒ THIẾT KẾ HỆ THỐNG ECT AGENTIC</h1>
         <div class="subtitle">Mô phỏng Dipole • Sinh ảnh Diffusion • Phân tích vết nứt ECT • Trợ lý Agentic Điều phối</div>
-        <p style="margin-top: 10px; font-size: 0.95rem; color: #0284c7;">
-            💡 <em>Bạn có thể bấm trực tiếp nút <strong>"💾 Tải ảnh PNG"</strong> ở mỗi sơ đồ để lưu về máy chèn vào bài báo cáo Word (.docx).</em>
+        <p style="margin-top: 12px; font-size: 1rem; color: #0284c7;">
+            📸 <strong>Toàn bộ 5 sơ đồ chất lượng cao (300 DPI) đã được vẽ và xuất trực tiếp thành file ảnh PNG bên dưới.</strong><br>
+            <em>Bạn có thể click chuột phải chọn "Save image as..." hoặc bấm nút "Tải ảnh PNG" để lưu vào máy và chèn thẳng vào bản Word (.docx).</em>
         </p>
     </header>
 
     <!-- SECTION 1: USE CASE DIAGRAM -->
-    <div class="card" id="card-usecase">
+    <div class="card">
         <div class="card-header">
             <h2 class="card-title">1. Sơ Đồ Use Case Tổng Thể Hệ Thống (Use Case Diagram)</h2>
-            <button class="btn-download" onclick="downloadMermaidAsPNG('diagram-usecase', 'So_do_Use_Case_ECT.png')">
-                💾 Tải ảnh PNG (Chất lượng cao)
-            </button>
+            <a class="btn-download" href="images/1_Use_Case_Tong_The.png" download="1_Use_Case_Tong_The.png">
+                📥 Tải file ảnh PNG (300 DPI)
+            </a>
         </div>
         <div class="desc">
-            Mô tả sự tương tác giữa 2 Actor (Kỹ sư NDT / Người dùng trực tiếp và Trợ lý AI Agentic) với các phân hệ chức năng: Quản lý dữ liệu, Mô phỏng Dipole, Phân tích vết nứt, Sinh ảnh Diffusion và Báo cáo.
+            Phân định rõ ranh giới giữa 2 Actor: <strong>Kỹ sư NDT</strong> (thao tác trực tiếp qua Form/Menu) và <strong>Trợ lý AI Agentic</strong> (tự động điều phối các chuỗi tác vụ phức tạp).
         </div>
-        <div class="mermaid-container" id="diagram-usecase">
-flowchart LR
-    User(["👤 Kỹ sư NDT / Người dùng"])
-    Agent(["🤖 Trợ lý AI Agentic"])
-
-    subgraph "HỆ THỐNG WEBSITE ECT"
-        subgraph "Quản Lý Dữ Liệu"
-            UC1["UC01: Upload & Tiền xử lý CSV 32x32"]
-            UC2["UC02: Xem bản đồ nhiệt Heatmap & Kiểm tra NaN"]
-            UC3["UC03: Quản lý Phiên bản Dataset & Gán nhãn"]
-        end
-
-        subgraph "Mô Phỏng & Tính Toán"
-            UC4["UC04: Chạy Mô phỏng Dipole bán giải tích"]
-            UC5["UC05: Khảo sát quét tham số Sweep W/L/D"]
-            UC6["UC06: Sinh dữ liệu từ trường bằng Diffusion"]
-        end
-
-        subgraph "Phân Tích & Đối Chiếu"
-            UC7["UC07: Phân loại biên dạng vết nứt CNN"]
-            UC8["UC08: Hồi quy kích thước W, L, D"]
-            UC9["UC09: Đối chiếu chéo Tín hiệu Đo vs Mô phỏng"]
-        end
-
-        subgraph "Điều Phối & Báo Cáo"
-            UC10["UC10: Giao mục tiêu tự động cho Agent"]
-            UC11["UC11: Phê duyệt kế hoạch Human-in-the-loop"]
-            UC12["UC12: Tự động xuất Báo cáo PDF/Word"]
-        end
-    end
-
-    User --> UC1
-    User --> UC2
-    User --> UC3
-    User --> UC4
-    User --> UC5
-    User --> UC6
-    User --> UC7
-    User --> UC8
-    User --> UC10
-    User --> UC11
-    User --> UC12
-
-    Agent -.->|Tự động gọi| UC4
-    Agent -.->|Tự động gọi| UC5
-    Agent -.->|Tự động gọi| UC7
-    Agent -.->|Tự động gọi| UC8
-    Agent -.->|Tự động tính| UC9
-    Agent -.->|Tổng hợp| UC12
+        <div class="img-container">
+            <img src="images/1_Use_Case_Tong_The.png" alt="Sơ đồ Use Case Tổng Thể ECT">
         </div>
     </div>
 
     <!-- SECTION 2: SEQUENCE DIAGRAM 1 -->
-    <div class="card" id="card-seq-dipole">
+    <div class="card">
         <div class="card-header">
             <h2 class="card-title">2. Sequence Diagram 1: Chạy Mô Phỏng Dipole Bán Giải Tích</h2>
-            <button class="btn-download" onclick="downloadMermaidAsPNG('diagram-seq-dipole', 'Sequence_Mo_phong_Dipole.png')">
-                💾 Tải ảnh PNG
-            </button>
+            <a class="btn-download" href="images/2_Sequence_Mo_Phong_Dipole.png" download="2_Sequence_Mo_Phong_Dipole.png">
+                📥 Tải file ảnh PNG (300 DPI)
+            </a>
         </div>
         <div class="desc">
-            Luồng chạy khi kỹ sư nhập tham số trên Form (vật liệu Al7075, W, L, D, tần số 5/10/20 kHz) $\rightarrow$ Backend tạo Job bất đồng bộ $\rightarrow$ Celery Worker tính toán ma trận $\rightarrow$ Trả về Heatmap 32x32.
+            Luồng chạy mô phỏng Dipole: Kỹ sư nhập tham số W/L/D và tần số trên Form $\rightarrow$ Đẩy vào hàng đợi Celery $\rightarrow$ Worker NumPy tính ma trận 32x32 $\rightarrow$ Trả về Heatmap qua Server-Sent Events.
         </div>
-        <div class="mermaid-container" id="diagram-seq-dipole">
-sequenceDiagram
-    autonumber
-    actor User as 👤 Kỹ sư NDT
-    participant UI as 🖥️ Web Frontend (React)
-    participant API as ⚡ FastAPI Backend
-    participant DB as 🗄️ Database (SQLite/Postgres)
-    participant Queue as 📬 Redis / Celery Queue
-    participant Worker as ⚙️ Simulation Worker (NumPy)
-
-    User->>UI: Chọn biên dạng, nhập W, L, D, tần số (10 kHz)
-    User->>UI: Bấm nút "Run Dipole Simulation"
-    UI->>API: POST /api/v1/simulations/dipole (Parameters JSON)
-    activate API
-    API->>API: Validate schema & miền tham số vật lý
-    API->>DB: INSERT INTO runs (status='QUEUED', params=...)
-    API->>Queue: Push task calculate_dipole_job(run_id)
-    API-->>UI: HTTP 202 Accepted {run_id: "...", job_status: "QUEUED"}
-    deactivate API
-
-    UI->>API: SSE /api/v1/runs/{id}/events (Lắng nghe tiến độ)
-    Queue->>Worker: Dispatch task calculate_dipole_job
-    activate Worker
-    Worker->>DB: UPDATE runs SET status='RUNNING'
-    Worker->>Worker: Tính toán phân bố Dipole (Bz, delta-Bz) ma trận 32x32
-    Worker->>Worker: Sinh ảnh Heatmap PNG & lưu file kết quả
-    Worker->>DB: INSERT INTO artifacts (tensor_path, heatmap_path)
-    Worker->>DB: UPDATE runs SET status='SUCCESS', results=...
-    Worker-->>Queue: Task Completed
-    deactivate Worker
-
-    API-->>UI: SSE Event: {status: 'SUCCESS', heatmap_url: '...', metrics: {...}}
-    UI-->>User: Hiển thị ảnh Heatmap 32x32 & đồ thị phân bố từ trường
+        <div class="img-container">
+            <img src="images/2_Sequence_Mo_Phong_Dipole.png" alt="Sơ đồ Tuần tự Mô phỏng Dipole">
         </div>
     </div>
 
     <!-- SECTION 3: SEQUENCE DIAGRAM 2 -->
-    <div class="card" id="card-seq-analysis">
+    <div class="card">
         <div class="card-header">
             <h2 class="card-title">3. Sequence Diagram 2: Upload CSV & Phân Tích Vết Nứt (CNN)</h2>
-            <button class="btn-download" onclick="downloadMermaidAsPNG('diagram-seq-analysis', 'Sequence_Phan_tich_Vet_nut_CNN.png')">
-                💾 Tải ảnh PNG
-            </button>
+            <a class="btn-download" href="images/3_Sequence_Phan_Tich_CNN.png" download="3_Sequence_Phan_Tich_CNN.png">
+                📥 Tải file ảnh PNG (300 DPI)
+            </a>
         </div>
         <div class="desc">
-            Luồng người dùng tải lên file CSV tín hiệu đo thực tế $\rightarrow$ Hệ thống tiền xử lý, kiểm tra kích thước $\rightarrow$ Nạp qua mạng CNN $\rightarrow$ Trả về phân loại biên dạng (Rectangular, Ellipse...) và kích thước W, L, D.
+            Luồng phân tích tín hiệu đo thực tế: Tải file CSV $\rightarrow$ Kiểm tra kích thước và xử lý thiếu sensor $\rightarrow$ Mạng CNN phân loại 5 biên dạng và hồi quy kích thước vết nứt W, L, D.
         </div>
-        <div class="mermaid-container" id="diagram-seq-analysis">
-sequenceDiagram
-    autonumber
-    actor User as 👤 Kỹ sư NDT
-    participant UI as 🖥️ Web Frontend (React)
-    participant API as ⚡ FastAPI Backend
-    participant DB as 🗄️ Database
-    participant Worker as 🧠 Model Worker (PyTorch CNN)
-
-    User->>UI: Kéo thả file CSV đo thực tế (dãy Hall 32x32)
-    User->>UI: Chọn tần số (10 kHz) & bấm "Phân tích vết nứt"
-    UI->>API: POST /api/v1/datasets/upload (File CSV multipart)
-    activate API
-    API->>API: Kiểm tra định dạng, kiểm tra NaN/Missing sensor
-    API->>DB: Lưu file gốc & INSERT INTO acquisitions
-    API->>Worker: Gọi inference_crack_cnn(tensor_32x32)
-    activate Worker
-    Worker->>Worker: Chuẩn hóa dữ liệu theo Scaler (Train fit)
-    Worker->>Worker: Forward pass CNN (Feature extraction)
-    Worker->>Worker: Head 1: Softmax phân loại biên dạng (5 lớp)
-    Worker->>Worker: Head 2: Regression dự đoán W, L, D (mm)
-    Worker-->>API: {shape: "Rectangular", W: 2.15, L: 5.08, D: 1.02, conf: 0.94}
-    deactivate Worker
-    API->>DB: INSERT INTO runs (run_type='analysis', results=...)
-    API-->>UI: HTTP 200 OK (Kết quả chi tiết)
-    deactivate API
-    UI-->>User: Hiển thị bảng nhãn dự đoán, kích thước W/L/D và độ tin cậy
+        <div class="img-container">
+            <img src="images/3_Sequence_Phan_Tich_CNN.png" alt="Sơ đồ Tuần tự Phân tích vết nứt CNN">
         </div>
     </div>
 
     <!-- SECTION 4: SEQUENCE DIAGRAM 3 -->
-    <div class="card" id="card-seq-agent">
+    <div class="card">
         <div class="card-header">
-            <h2 class="card-title">4. Sequence Diagram 3: Trợ Lý Agentic Tự Động Hóa & Đối Chiếu Chéo</h2>
-            <button class="btn-download" onclick="downloadMermaidAsPNG('diagram-seq-agent', 'Sequence_Tro_ly_Agentic_Dieu_phoi.png')">
-                💾 Tải ảnh PNG
-            </button>
+            <h2 class="card-title">4. Sequence Diagram 3: Trợ Lý Agentic Điều Phối Tự Động & Đối Chiếu Chéo</h2>
+            <a class="btn-download" href="images/4_Sequence_Tro_Ly_Agentic.png" download="4_Sequence_Tro_Ly_Agentic.png">
+                📥 Tải file ảnh PNG (300 DPI)
+            </a>
         </div>
         <div class="desc">
-            Minh họa sức mạnh Agentic: Kỹ sư giao mục tiêu cấp cao qua Chat $\rightarrow$ Agent tự chia nhỏ kế hoạch $\rightarrow$ Gọi tool Phân tích CNN $\rightarrow$ Lấy kết quả chạy ngược lại Mô phỏng Dipole $\rightarrow$ Đo sai số RMSE $\rightarrow$ Tự viết báo cáo.
+            Vòng lặp ReAct của Trợ lý AI: Nhận mục tiêu cấp cao qua Chat $\rightarrow$ Lập kế hoạch 3 bước $\rightarrow$ Gọi Tool CNN $\rightarrow$ Lấy kết quả chạy ngược Dipole $\rightarrow$ Đo sai số RMSE $\rightarrow$ Tự động xuất Báo cáo PDF.
         </div>
-        <div class="mermaid-container" id="diagram-seq-agent">
-sequenceDiagram
-    autonumber
-    actor User as 👤 Kỹ sư NDT
-    participant ChatUI as 💬 Assistant Panel
-    participant Agent as 🤖 Agent Controller (Python ReAct)
-    participant Tools as 🛠️ Backend Tools Registry
-    participant DB as 🗄️ Database
-
-    User->>ChatUI: "Phân tích file specimen_01.csv rồi mô phỏng dipole đối chứng sai số"
-    ChatUI->>Agent: POST /api/v1/agent-tasks {goal: "..."}
-    activate Agent
-    Agent->>Agent: Lập kế hoạch: Step 1 (CNN) -> Step 2 (Dipole) -> Step 3 (Compare)
-    Agent->>DB: Lưu agent_plans & checkpoints
-
-    Note over Agent,Tools: Bước 1: Gọi Tool Phân Tích
-    Agent->>Tools: call Tool: analyze_crack(file_id='specimen_01')
-    Tools-->>Agent: Kết quả: {shape: 'Rectangular', W: 2.1, L: 5.0, D: 1.0}
-
-    Note over Agent,Tools: Bước 2: Gọi Tool Mô Phỏng Dipole
-    Agent->>Tools: call Tool: run_dipole(W=2.1, L=5.0, D=1.0, freq=10)
-    Tools-->>Agent: Kết quả: {simulated_tensor_id: 'artifact_99'}
-
-    Note over Agent,Tools: Bước 3: Đánh giá định lượng (Evaluator)
-    Agent->>Tools: call Tool: compute_metrics(measured_id, simulated_id)
-    Tools-->>Agent: Kết quả: {RMSE: 0.038, R2: 0.962, Max_Diff: 0.11}
-
-    Agent->>Agent: Kiểm tra tiêu chí (RMSE < 0.05 -> ĐẠT)
-    Agent->>Tools: call Tool: generate_pdf_report(evidence_ids)
-    Tools-->>Agent: Báo cáo đã tạo: report_final.pdf
-    Agent->>DB: Cập nhật agent_tasks (status='COMPLETED')
-    Agent-->>ChatUI: Báo cáo kết quả: "Vết nứt Rectangular khớp với Dipole (R²=0.962). [Tải Báo Cáo]"
-    deactivate Agent
-    ChatUI-->>User: Hiển thị tóm tắt, bảng sai số và nút tải báo cáo hoàn chỉnh
+        <div class="img-container">
+            <img src="images/4_Sequence_Tro_Ly_Agentic.png" alt="Sơ đồ Tuần tự Trợ lý Agentic">
         </div>
     </div>
 
     <!-- SECTION 5: DATABASE ERD -->
-    <div class="card" id="card-erd">
+    <div class="card">
         <div class="card-header">
-            <h2 class="card-title">5. Sơ Đồ Thực Thể Quan Hệ Cơ Sở Dữ Liệu (ERD Diagram)</h2>
-            <button class="btn-download" onclick="downloadMermaidAsPNG('diagram-erd', 'So_do_ERD_Database_ECT.png')">
-                💾 Tải ảnh PNG
-            </button>
+            <h2 class="card-title">5. Sơ Đồ Cơ Sở Dữ Liệu Quan Hệ (Database ERD Diagram)</h2>
+            <a class="btn-download" href="images/5_ERD_Database_He_Thong.png" download="5_ERD_Database_He_Thong.png">
+                📥 Tải file ảnh PNG (300 DPI)
+            </a>
         </div>
         <div class="desc">
-            Sơ đồ quan hệ thực thể toàn diện chuẩn hóa dữ liệu nghiên cứu, lịch sử chạy mô phỏng, quản lý file nhị phân (Artifacts) và bộ nhớ tác vụ của AI Agent.
+            Sơ đồ quan hệ thực thể toàn diện chuẩn hóa dữ liệu nghiên cứu: Quản lý Mẫu nhôm, Lần đo ECT, Lịch sử Chạy, Quản lý File nhị phân (Artifacts) và Bộ nhớ tác vụ của AI Agent.
         </div>
-        <div class="mermaid-container" id="diagram-erd">
-erDiagram
-    USERS ||--o{ PROJECTS : "sở hữu"
-    PROJECTS ||--o{ SPECIMENS : "chứa"
-    PROJECTS ||--o{ DATASETS : "quản lý"
-    PROJECTS ||--o{ RUNS : "thực hiện"
-    PROJECTS ||--o{ AGENT_CONVERSATIONS : "có"
-
-    SPECIMENS ||--o{ ACQUISITIONS : "có các lần đo"
-    DATASETS ||--o{ DATASET_SAMPLES : "bao gồm"
-    ACQUISITIONS ||--o{ DATASET_SAMPLES : "cung cấp dữ liệu"
-
-    MODELS ||--o{ MODEL_VERSIONS : "có phiên bản"
-    MODEL_VERSIONS ||--o{ RUNS : "được dùng trong"
-
-    RUNS ||--o{ JOBS : "tạo tác vụ nền"
-    RUNS ||--o{ ARTIFACTS : "sinh ra file"
-
-    AGENT_CONVERSATIONS ||--o{ AGENT_MESSAGES : "chứa tin nhắn"
-    AGENT_CONVERSATIONS ||--o{ AGENT_TASKS : "điều phối"
-    AGENT_TASKS ||--o{ RUNS : "kích hoạt"
-
-    USERS {
-        uuid id PK
-        string username
-        string email
-        string full_name
-        string role
-        datetime created_at
-    }
-
-    PROJECTS {
-        uuid id PK
-        uuid owner_id FK
-        string name
-        string description
-        datetime created_at
-    }
-
-    SPECIMENS {
-        uuid id PK
-        uuid project_id FK
-        string code
-        string material
-        float thickness_mm
-        string actual_shape
-        float actual_w
-        float actual_l
-        float actual_d
-    }
-
-    ACQUISITIONS {
-        uuid id PK
-        uuid specimen_id FK
-        int frequency_hz
-        string grid_size
-        float pitch_mm
-        string operator_type
-        uuid raw_csv_artifact_id FK
-        datetime measured_at
-    }
-
-    DATASETS {
-        uuid id PK
-        uuid project_id FK
-        string name
-        string version
-        string split_type
-        datetime created_at
-    }
-
-    DATASET_SAMPLES {
-        uuid id PK
-        uuid dataset_id FK
-        uuid acquisition_id FK
-        string source_type
-        uuid tensor_artifact_id FK
-    }
-
-    MODELS {
-        uuid id PK
-        string name
-        string model_type
-        string architecture
-    }
-
-    MODEL_VERSIONS {
-        uuid id PK
-        uuid model_id FK
-        string version
-        uuid weights_artifact_id FK
-        json metrics_json
-        string status
-    }
-
-    RUNS {
-        uuid id PK
-        uuid project_id FK
-        uuid model_version_id FK
-        string run_type
-        string initiated_via
-        uuid agent_task_id FK
-        json parameters_json
-        json results_json
-        string status
-        datetime created_at
-    }
-
-    JOBS {
-        uuid id PK
-        uuid run_id FK
-        string queue_name
-        string status
-        int progress_percent
-        text error_message
-        datetime started_at
-        datetime finished_at
-    }
-
-    ARTIFACTS {
-        uuid id PK
-        uuid run_id FK
-        string name
-        string file_type
-        string storage_path
-        int file_size_bytes
-        string sha256_hash
-        datetime created_at
-    }
-
-    AGENT_CONVERSATIONS {
-        uuid id PK
-        uuid project_id FK
-        string title
-        datetime created_at
-    }
-
-    AGENT_MESSAGES {
-        uuid id PK
-        uuid conversation_id FK
-        string role
-        text content
-        datetime created_at
-    }
-
-    AGENT_TASKS {
-        uuid id PK
-        uuid conversation_id FK
-        text goal
-        string status
-        json plan_json
-        int current_step
-        datetime updated_at
-    }
+        <div class="img-container">
+            <img src="images/5_ERD_Database_He_Thong.png" alt="Sơ đồ ERD Database Hệ thống ECT">
         </div>
     </div>
 
@@ -517,7 +236,7 @@ erDiagram
         <h2 class="card-title">6. Từ Điển Dữ Liệu Chi Tiết (Data Dictionary)</h2>
         <div class="desc">Chi tiết cấu trúc các bảng, ý nghĩa trường và ràng buộc khóa trong CSDL.</div>
         
-        <h3 style="color: #334155; margin-top: 20px;">6.1. Bảng <code>SPECIMENS</code> (Mẫu vật thí nghiệm ECT)</h3>
+        <h3 style="color: #334155; margin-top: 20px;">6.1. Bảng <code>SPECIMENS</code> (Mẫu vật thí nghiệm nhôm Al7075)</h3>
         <div class="table-responsive">
             <table>
                 <thead>
@@ -614,55 +333,6 @@ erDiagram
         Đồ án tốt nghiệp: Nghiên cứu ứng dụng Agentic Software Engineering trong Phân tích & Mô phỏng Từ trường ECT • 2026
     </div>
 </div>
-
-<script>
-    mermaid.initialize({
-        startOnLoad: true,
-        theme: 'default',
-        flowchart: { useMaxWidth: false, htmlLabels: true },
-        sequence: { useMaxWidth: false, showSequenceNumbers: true },
-        er: { useMaxWidth: false }
-    });
-
-    // Chuyển đổi mã SVG của Mermaid sang file PNG chất lượng cao (300 DPI)
-    function downloadMermaidAsPNG(containerId, fileName) {
-        const container = document.getElementById(containerId);
-        const svgElement = container.querySelector('svg');
-        if (!svgElement) {
-            alert('Sơ đồ đang được vẽ, vui lòng thử lại sau giây lát!');
-            return;
-        }
-
-        const svgData = new XMLSerializer().serializeToString(svgElement);
-        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-        const URL = window.URL || window.webkitURL || window;
-        const blobURL = URL.createObjectURL(svgBlob);
-
-        const image = new Image();
-        image.onload = function() {
-            const scaleFactor = 3; // Tăng độ nét gấp 3 lần cho bản in Word sắc nét
-            const canvas = document.createElement('canvas');
-            canvas.width = (svgElement.getBoundingClientRect().width || 1200) * scaleFactor;
-            canvas.height = (svgElement.getBoundingClientRect().height || 800) * scaleFactor;
-            
-            const context = canvas.getContext('2d');
-            context.fillStyle = '#ffffff';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.scale(scaleFactor, scaleFactor);
-            context.drawImage(image, 0, 0);
-
-            const pngURL = canvas.toDataURL('image/png');
-            const downloadLink = document.createElement('a');
-            downloadLink.href = pngURL;
-            downloadLink.download = fileName;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-            URL.revokeObjectURL(blobURL);
-        };
-        image.src = blobURL;
-    }
-</script>
 
 </body>
 </html>
