@@ -29,8 +29,9 @@ Repository người dùng đã cung cấp: https://github.com/CongDuc1134/DATN_P
 - Loại khỏi commit: credential/.env bí mật, token, log nhạy cảm, dependency cài đặt, build/cache, file tạm Office, checkpoint/dataset lớn chưa được duyệt đưa lên GitHub.
 - Bộ skill và tài nguyên tham khảo đã được người dùng yêu cầu có thể được commit; giữ license và nguồn gốc. Các junction đăng ký skill trên máy là metadata local, không sao chép thành nhiều bản thư viện lên Git.
 - Dùng danh tính Git đã được người dùng cấu hình. Nếu chưa có, hỏi tên/email mong muốn; không tự dùng danh tính của người khác hoặc giá trị giả.
-- Tạo commit mới cho đợt sửa hoàn chỉnh; không tự amend lịch sử đã có. Subject tiếng Việt ngắn và cụ thể, ví dụ `Sửa kiểm tra dữ liệu CSV và cập nhật thông báo lỗi`.
+- Tạo commit mới cho đợt sửa hoàn chỉnh; không tự amend commit đã công bố hoặc commit có sẵn trước tác vụ. Có thể sửa commit do mình vừa tạo trong tác vụ hiện tại khi đã xác minh nó chưa được push. Subject tiếng Việt ngắn và cụ thể, ví dụ `Sửa kiểm tra dữ liệu CSV và cập nhật thông báo lỗi`.
 - Body khi cần: những module/hành vi đã sửa; lý do; các lệnh kiểm tra và kết quả; giới hạn còn lại. Dùng file UTF-8 với `git commit -F <file>` để giữ tiếng Việt và xuống dòng đúng.
+- Kiểm tra nội dung file commit còn nguyên dấu trước khi gọi Git. Trên Windows, tránh pipe chuỗi tiếng Việt qua PowerShell với encoding mặc định; ghi file UTF-8 trực tiếp hoặc cấu hình encoding rõ ràng. Nếu kiểm tra thất bại, dừng trước commit/push; không chạy các bước phụ thuộc khi chưa đọc kết quả kiểm tra.
 - Không có diff thì không tạo commit rỗng. Nếu có commit của công việc hiện tại đã sẵn sàng nhưng chưa push, kiểm tra rồi push đúng commit đó.
 
 ## 4. Push và xác nhận
