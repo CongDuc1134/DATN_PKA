@@ -1,12 +1,15 @@
 <#
 .SYNOPSIS
-Registers the canonical DATN skills for Codex and Claude Code on Windows.
+Registers the canonical DATN skills for Codex, Antigravity, and Claude Code on Windows.
 .DESCRIPTION
 Run again after cloning DATN to a new location. Existing correct junctions are
-kept; conflicting paths are reported and never replaced. No user-global setup.
+kept; conflicting paths are reported and never replaced.
+Can register for local project (.agents, .claude, .codex) and user global (~/.codex/skills, ~/.gemini/config/skills).
 #>
 [CmdletBinding()]
-param()
+param(
+    [switch]$Global
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -22,7 +25,8 @@ if ($datnSkillFolders.Count -eq 0) {
     throw 'No canonical skills were found.'
 }
 
-foreach ($datnAgentName in @('.agents', '.claude')) {
+# 1. Register for local project agent directories
+foreach ($datnAgentName in @('.agents', '.claude', '.codex')) {
     $datnDiscoveryRoot = Join-Path $datnProjectRoot "$datnAgentName\skills"
     $null = New-Item -ItemType Directory -Path $datnDiscoveryRoot -Force
     foreach ($datnSkillFolder in $datnSkillFolders) {
@@ -48,5 +52,47 @@ foreach ($datnAgentName in @('.agents', '.claude')) {
             throw "Registration is unreadable: $datnLinkPath"
         }
         Write-Output "$datnAgentName/skills/$($datnSkillFolder.Name) -> skills/$($datnSkillFolder.Name)"
+    }
+}
+
+# 2. Ensure .agents/skills.json exists for Antigravity explicit discovery
+$skillsJsonPath = Join-Path $datnProjectRoot '.agents\skills.json'
+$skillsJsonContent = @'
+{
+  "entries": [
+    {
+      "path": "skills"
+    }
+  ]
+}
+'@
+if (-not (Test-Path -LiteralPath $skillsJsonPath)) {
+    Set-Content -LiteralPath $skillsJsonPath -Value $skillsJsonContent -Encoding UTF8
+    Write-Output ".agents/skills.json created for Antigravity"
+}
+
+# 3. If -Global is specified, also register to user home directories for Codex and Antigravity
+if ($Global) {
+    $userProfile = [System.Environment]::GetFolderPath('UserProfile')
+    $globalDestinations = @(
+        (Join-Path $userProfile '.codex\skills'),
+        (Join-Path $userProfile '.gemini\config\skills')
+    )
+    foreach ($gRoot in $globalDestinations) {
+        $null = New-Item -ItemType Directory -Path $gRoot -Force
+        foreach ($datnSkillFolder in $datnSkillFolders) {
+            $datnTargetPath = [System.IO.Path]::GetFullPath($datnSkillFolder.FullName)
+            $datnLinkPath = Join-Path $gRoot $datnSkillFolder.Name
+            $datnExisting = Get-Item -LiteralPath $datnLinkPath -Force -ErrorAction SilentlyContinue
+            if ($null -ne $datnExisting) {
+                if ($datnExisting.LinkType -ne 'Junction') {
+                    Write-Warning "Global path exists and is not a junction, skipping: $datnLinkPath"
+                    continue
+                }
+            } else {
+                $null = New-Item -ItemType Junction -Path $datnLinkPath -Target $datnTargetPath
+            }
+            Write-Output "Global: $gRoot\$($datnSkillFolder.Name) -> skills/$($datnSkillFolder.Name)"
+        }
     }
 }

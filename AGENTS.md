@@ -17,7 +17,7 @@ Stack người dùng đã chốt: frontend **React**, backend **FastAPI**. Tái 
 ## Lưu trữ và phạm vi kiểm tra
 
 - `skills/` là thư mục nguồn duy nhất của bộ skill: chỉ chứa các folder skill cùng tài nguyên phục vụ chúng. Không đặt source sản phẩm, dataset, checkpoint hoặc báo cáo ứng dụng trong đây.
-- `.agents/skills/` và `.claude/skills/` chứa các liên kết tới cùng các folder nguồn để công cụ tìm được skill. Khi sửa skill, sửa file gốc trong `skills/`. Sau khi clone/chuyển đường dẫn trên Windows, chạy `powershell -NoProfile -File skills/datn-web-structure/scripts/register-project-skills.ps1` để tạo liên kết local; không commit bản sao qua junction.
+- `.agents/skills/`, `.codex/skills/` và `.claude/skills/` chứa các liên kết tới cùng các folder nguồn để các công cụ (Codex, Antigravity, Claude Code) tự động nhận diện skill. Cấu hình `.agents/skills.json` giúp Antigravity nhận diện trực tiếp thư mục `skills/`. Khi sửa skill, sửa file gốc trong `skills/`. Sau khi clone/chuyển đường dẫn trên Windows, chạy `powershell -NoProfile -File skills/datn-web-structure/scripts/register-project-skills.ps1 [-Global]` để tạo liên kết local hoặc toàn cục; không commit bản sao qua junction.
 - `skills/ux-ui-agent-skills/references/upstream/` là tài nguyên bên thứ ba, không phải source website. Không lấy app mẫu hoặc self-test ở đó làm bằng chứng website đã hoạt động.
 - Code phải được đặt trong folder phù hợp cấu trúc đã duyệt; không tạo bản `new/fixed/v2` song song để né sửa code gốc.
 - Với hàm nghi không dùng, xác minh callback, route, decorator, registry và public export trước khi xóa. Không tạo stub/no-op hoặc gọi hàm vô nghĩa để làm sạch báo cáo.
