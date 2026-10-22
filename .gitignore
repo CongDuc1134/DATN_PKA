@@ -1,0 +1,27 @@
+# Local skill registrations point to the single canonical skills/ directory.
+/.agents/skills/
+/.claude/skills/
+
+# Credentials, local environment and temporary Office files.
+.env
+.env.*
+!.env.example
+!.env.template
+~$*
+*.tmp
+
+# Installed dependencies and generated output.
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+/.codex/
+/dist/
+/build/
+/coverage/
+/test-results/
+/playwright-report/
